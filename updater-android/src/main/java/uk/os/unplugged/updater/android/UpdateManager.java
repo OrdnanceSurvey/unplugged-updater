@@ -16,6 +16,7 @@
 
 package uk.os.unplugged.updater.android;
 
+import android.content.Context;
 import android.util.Log;
 
 import java.io.File;
@@ -25,6 +26,7 @@ public final class UpdateManager {
 
     public static final class Builder {
 
+        private Context applicationContext = null;
         private File destinationGazetteerFile = null;
         private File destinationMapFile = null;
         private File sourceGazetteerFile = null;
@@ -40,9 +42,9 @@ public final class UpdateManager {
             return this;
         }
 
-        public Builder setDataSource(DataSource dataSource) {
-            sourceGazetteerFile = dataSource.getGazetteerData();
-            sourceMapFile = dataSource.getMapData();
+        public Builder setProvider(Provider provider) {
+            sourceGazetteerFile = provider.getGazetteerData();
+            sourceMapFile = provider.getMapData();
             return this;
         }
 

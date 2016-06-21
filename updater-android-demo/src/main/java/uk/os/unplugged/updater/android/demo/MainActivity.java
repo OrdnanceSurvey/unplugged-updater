@@ -18,19 +18,19 @@ package uk.os.unplugged.updater.android.demo;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
 import java.io.File;
 
-import uk.os.unplugged.updater.android.DataSourceImpl;
-import uk.os.unplugged.updater.android.UpdateManager;
+import uk.os.unplugged.updater.android.AsyncCopyTask;
+import uk.os.unplugged.updater.android.CopyTaskCompletionListener;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements CopyTaskCompletionListener {
 
     private static final int REQUEST_CODE_EXTERNAL_COPY = 0;
 
@@ -75,17 +75,31 @@ public class MainActivity extends AppCompatActivity {
         final File map = new File(MainActivity.this.getExternalFilesDir(null) + File.separator
                 + "map.done");
 
+        /*
         new Thread(new Runnable() {
             @Override
             public void run() {
                 UpdateManager updateManager = new UpdateManager.Builder()
                         .setGazetteerDestination(gazetteer)
                         .setMapDestination(map)
-                        .setDataSource(new DataSourceImpl())
+                        .setProvider(new ProviderImpl())
                         .build();
 
                 updateManager.update();
             }
         }).start();
+        */
+
+        new AsyncCopyTask(this, this, gazetteer, map).execute();
+    }
+
+    @Override
+    public void copyTaskCompleted(boolean success, String message) {
+        Toast.makeText(this,
+                "Copy completed: " + (success
+                        ? "successfully."
+                        : "with errors. " + message),
+                Toast.LENGTH_LONG)
+                .show();
     }
 }
