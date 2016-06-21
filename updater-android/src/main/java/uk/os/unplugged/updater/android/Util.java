@@ -44,6 +44,8 @@ public final class Util {
      * @throws IOException
      */
     public static void copy(File src, File dst) throws IOException {
+        Log.d(TAG, "Copying from: " + src.getAbsolutePath() + " to: " + dst.getAbsolutePath());
+
         InputStream in = new FileInputStream(src);
         try {
             OutputStream out = new FileOutputStream(dst);
