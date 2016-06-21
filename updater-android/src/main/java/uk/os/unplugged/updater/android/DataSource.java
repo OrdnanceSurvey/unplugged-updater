@@ -1,3 +1,4 @@
+
 /*
  * Copyright (C) 2016 Ordnance Survey
  *
@@ -16,19 +17,21 @@
 
 package uk.os.unplugged.updater.android;
 
-import android.os.Environment;
-
 import java.io.File;
 
-public class ProviderImpl implements Provider {
+/**
+ * Note: all references are assumed to have corresponding MD5 files.  For example, foo.bar is
+ * expected to have a corresponding foo.bar.md5 file.
+ */
+public interface DataSource {
 
-    @Override
-    public final File getGazetteerData() {
-        return new File(Environment.getExternalStorageDirectory(), "gazetteer.db");
-    }
+    /**
+     * @return a reference to an updated gazetteer file
+     */
+    File getGazetteerData();
 
-    @Override
-    public final File getMapData() {
-        return new File(Environment.getExternalStorageDirectory(), "mbgl-offline.db");
-    }
+    /**
+     * @return a reference to an updated map file
+     */
+    File getMapData();
 }

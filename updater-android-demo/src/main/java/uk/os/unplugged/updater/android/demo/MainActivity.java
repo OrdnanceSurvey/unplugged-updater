@@ -27,7 +27,7 @@ import android.widget.Toast;
 
 import java.io.File;
 
-import uk.os.unplugged.updater.android.ProviderImpl;
+import uk.os.unplugged.updater.android.DataSourceImpl;
 import uk.os.unplugged.updater.android.UpdateManager;
 
 public class MainActivity extends AppCompatActivity {
@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
                 UpdateManager updateManager = new UpdateManager.Builder()
                         .setGazetteerDestination(gazetteer)
                         .setMapDestination(map)
-                        .setProvider(new ProviderImpl())
+                        .setDataSource(new DataSourceImpl())
                         .build();
 
                 updateManager.update();

@@ -40,9 +40,9 @@ public final class UpdateManager {
             return this;
         }
 
-        public Builder setProvider(Provider provider) {
-            sourceGazetteerFile = provider.getGazetteerData();
-            sourceMapFile = provider.getMapData();
+        public Builder setDataSource(DataSource dataSource) {
+            sourceGazetteerFile = dataSource.getGazetteerData();
+            sourceMapFile = dataSource.getMapData();
             return this;
         }
 
