@@ -14,9 +14,7 @@
  * limitations under the License.
  */
 
-package uk.os.unplugged.updater.android;
-
-import android.util.Log;
+package uk.os.unplugged.updater.tasks.copy;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -26,16 +24,17 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public final class Util {
+final class Util {
 
+    private static final Logger LOGGER = Logger.getLogger(Util.class.getSimpleName());
     private static final int KIBIBYTE_IN_BYTES = 1024;
 
     private Util() {}
-
-    private static final String TAG = Util.class.getSimpleName();
 
     /**
      * source: http://stackoverflow.com/questions/106770/standard-concise-way-to-copy-a-file-in-java
@@ -70,7 +69,7 @@ public final class Util {
             if (!adjacentFile.exists()) {
                 throw new IOException("missing MD5 file - " + adjacentFile.getAbsolutePath());
             }
-            br = new BufferedReader(new FileReader(new File(file.getAbsolutePath() + ".md5")));
+            br = new BufferedReader(new FileReader(adjacentFile));
             String rawMd5Value = br.readLine();
             // TODO - could be tightened up
             Pattern pattern = Pattern.compile(".*([a-f0-9]{32}).*");
@@ -79,14 +78,15 @@ public final class Util {
                 result = matcher.group(1);
             }
         } catch (IOException e) {
-            Log.e(TAG, "cannot get MD5 value for " + file.getAbsolutePath(), e);
+            LOGGER.log(Level.WARNING, "cannot get MD5 value for " + file.getAbsolutePath());
         } finally {
             try {
                 if (br != null) {
                     br.close();
                 }
             } catch (IOException e){
-                Log.e(TAG, "cannot close file reader for " + file.getAbsolutePath(), e);
+                LOGGER.log(Level.WARNING, "cannot close file reader for " + file.getAbsolutePath(),
+                        e);
             }
         }
 

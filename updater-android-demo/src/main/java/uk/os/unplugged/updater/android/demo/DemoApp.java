@@ -1,4 +1,3 @@
-
 /*
  * Copyright (C) 2016 Ordnance Survey
  *
@@ -15,23 +14,17 @@
  * limitations under the License.
  */
 
-package uk.os.unplugged.updater.android;
+package uk.os.unplugged.updater.android.demo;
 
-import java.io.File;
+import android.app.Application;
 
-/**
- * Note: all references are assumed to have corresponding MD5 files.  For example, foo.bar is
- * expected to have a corresponding foo.bar.md5 file.
- */
-public interface DataSource {
+import timber.log.Timber;
 
-    /**
-     * @return a reference to an updated gazetteer file
-     */
-    File getGazetteerData();
+public class DemoApp extends Application {
 
-    /**
-     * @return a reference to an updated map file
-     */
-    File getMapData();
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        Timber.plant(new Timber.DebugTree());
+    }
 }

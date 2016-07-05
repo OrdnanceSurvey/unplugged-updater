@@ -1,1 +1,1 @@
-include ':updater-android-demo', ':updater-android'
+include ':updater-android-demo', ':updater-android', ':updater-java'

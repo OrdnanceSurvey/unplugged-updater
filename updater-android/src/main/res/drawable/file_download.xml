@@ -14,13 +14,14 @@
   limitations under the License.
   -->
 
-<resources>
-    <string name="app_name">Update Demo</string>
-    <string name="loading_activity_0_request_perms">0) Request sdcard permission</string>
-    <string name="loading_activity_1_create_test_files">1) Create test files</string>
-    <string name="loading_activity_1_1_create_broken_files">1.1) Create broken files</string>
-    <string name="loading_activity_2_copy">2) Copy</string>
-    <string name="loading_activity_3_delete_test_files">3) Delete test files</string>
-    <string name="main_activity_success_message">Success!\n\nYou reached here\n
-        because the files copied ok</string>
-</resources>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportHeight="24.0"
+    android:viewportWidth="24.0">
+
+    <path
+        android:fillColor="#ffffff"
+        android:pathData="M19 9h-4v-6h-6v6h-4l7 7 7-7zm-14 9v2h14v-2h-14z" />
+
+</vector>

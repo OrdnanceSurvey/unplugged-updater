@@ -16,4 +16,7 @@
 
 <resources>
     <string name="app_name">Android Updater</string>
+    <string name="loading_service_content_text">Step %1$s of %2$d</string>
+    <string name="loading_service_content_text_initial">Checking for updates...</string>
+    <string name="loading_service_content_title_default">Loading Service</string>
 </resources>

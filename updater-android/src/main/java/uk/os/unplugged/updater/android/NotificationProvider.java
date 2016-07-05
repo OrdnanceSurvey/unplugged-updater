@@ -16,19 +16,23 @@
 
 package uk.os.unplugged.updater.android;
 
-import android.os.Environment;
+import android.app.Notification;
+import android.content.Context;
 
-import java.io.File;
+import uk.os.unplugged.updater.UpdateManager;
 
-public class DataSourceImpl implements DataSource {
+public interface NotificationProvider {
 
-    @Override
-    public final File getGazetteerData() {
-        return new File(Environment.getExternalStorageDirectory(), "gazetteer.db");
-    }
+    /**
+     * @param context the application context
+     * @return the initial notification
+     */
+    Notification getNotification(Context context);
 
-    @Override
-    public final File getMapData() {
-        return new File(Environment.getExternalStorageDirectory(), "mbgl-offline.db");
-    }
+    /**
+     * @param context the application context
+     * @param batch the latest batch we require a notification for
+     * @return a notification suitable for the batch value
+     */
+    Notification getNotification(Context context, UpdateManager.Batch batch);
 }

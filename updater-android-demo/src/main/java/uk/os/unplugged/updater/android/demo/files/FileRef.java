@@ -14,15 +14,29 @@
  * limitations under the License.
  */
 
-package uk.os.unplugged.updater.android.demo;
+package uk.os.unplugged.updater.android.demo.files;
 
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import java.io.File;
 
-public class MainActivity extends AppCompatActivity {
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+public class FileRef {
+
+    private final File mSource;
+    private final File mDestination;
+
+    public FileRef(File source, File destination) {
+        mSource = source;
+        mDestination = destination;
+    }
+
+    public File getSource() {
+        return mSource;
+    }
+
+    public File getSourceMd5() {
+        return new File(mSource.getAbsolutePath() + ".md5");
+    }
+
+    public File getDestination() {
+        return mDestination;
     }
 }

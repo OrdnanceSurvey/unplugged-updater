@@ -14,15 +14,9 @@
  * limitations under the License.
  */
 
-package uk.os.unplugged.updater.android.demo;
+package uk.os.unplugged.updater;
 
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+public interface ProgressListener {
 
-public class MainActivity extends AppCompatActivity {
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-    }
+    void onProgress(float progress);
 }

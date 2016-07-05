@@ -16,13 +16,9 @@
 
 package uk.os.unplugged.updater.android.demo;
 
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+public final class AppConfig {
 
-public class MainActivity extends AppCompatActivity {
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-    }
+    public static final int LOADING_NOTIFICATION_ID = 50005;
+
+    private AppConfig() {}
 }

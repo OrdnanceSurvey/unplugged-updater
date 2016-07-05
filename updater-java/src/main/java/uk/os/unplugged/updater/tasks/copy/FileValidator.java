@@ -14,17 +14,19 @@
  * limitations under the License.
  */
 
-package uk.os.unplugged.updater.android;
-
-import android.util.Log;
+package uk.os.unplugged.updater.tasks.copy;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-public final class FileValidator {
+final class FileValidator {
+
+    private static final Logger LOGGER = Logger.getLogger(FileValidator.class.getSimpleName());
 
     private static final int KIBIBYTE_IN_BYTES = 1024;
 
@@ -41,7 +43,7 @@ public final class FileValidator {
             throw new IllegalArgumentException("Null file passed!");
         }
         if (md5 == null || md5.isEmpty()) {
-            throw new IllegalArgumentException("Invalid MD5 value");
+            throw new IllegalArgumentException("Empty MD5 value for " + file);
         }
 
         // commence checks
@@ -54,15 +56,15 @@ public final class FileValidator {
             if (fileMd5.equals(md5)) {
                 result = true;
             } else {
-                Log.e(FileValidator.class.getName(), "Error validating " + file.getName()
-                        + ".  Expected MD5: " + md5 + " but calculated was: " + fileMd5);
+                String message = "Error validating " + file.getName()
+                        + ".  Expected MD5: " + md5 + " but calculated was: " + fileMd5;
+                LOGGER.log(Level.WARNING, message);
             }
         } catch (IOException ioe) {
-            Log.e(FileValidator.class.getSimpleName(), "Error generating MD5", ioe);
+            LOGGER.log(Level.WARNING, "Error generating MD5");
         }
 
-        Log.d(FileValidator.class.getSimpleName(),
-                "File Validation was complete for: " + file.getName());
+        LOGGER.log(Level.INFO, "File Validation was complete for: " + file.getName());
         return result;
     }
 
@@ -73,8 +75,7 @@ public final class FileValidator {
         FileInputStream fileInputStream = null;
         try {
             MessageDigest messageDigest = MessageDigest.getInstance("MD5");
-
-            Log.d(Util.class.getSimpleName(), "Reading: " + file.getAbsolutePath());
+            LOGGER.log(Level.INFO, "Reading: " + file.getAbsolutePath());
             fileInputStream = new FileInputStream(file);
             byte[] bytes = new byte[KIBIBYTE_IN_BYTES];
 
@@ -111,7 +112,7 @@ public final class FileValidator {
      *
      * Returns this byte string encoded in hexadecimal. */
     private static String hex(byte[] bytes) {
-        Log.d(Util.class.getSimpleName(), "Hexing length: " + bytes.length);
+        LOGGER.log(Level.INFO, "Hexing length: " + bytes.length);
         char[] result = new char[bytes.length * 2];
         int c = 0;
         for (byte b : bytes) {
